@@ -1,23 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useState } from 'react';
+import { Toaster, toast } from 'react-hot-toast';
 
 function App() {
+  const [copied, setCopied] = useState(false);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <CopyToClipboard text="texto a pegar">
+        <p
+          onClick={() => {
+            toast('Texto copiado!!', { position: 'top-right' });
+            setCopied(true);
+          }}
+          style={{ cursor: 'pointer' }}
         >
-          Learn React
-        </a>
-      </header>
+          Copy me!!
+        </p>
+      </CopyToClipboard>
+
+      {copied && <input type="text" placeholder="Pegar" />}
+
+      <Toaster></Toaster>
     </div>
   );
 }
